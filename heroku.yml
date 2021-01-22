@@ -1,0 +1,12 @@
+build:
+  docker:
+    server: server/Dockerfile
+    front: front/Dockerfile
+run:
+  server: python server.py
+  front: PORT=80 yarn start
+  # worker:
+  #   command:
+  #     - npm run build
+  #     - PORT=80 serve -s build
+  #   image: front
