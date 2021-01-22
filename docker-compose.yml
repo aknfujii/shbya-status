@@ -1,0 +1,20 @@
+version: "3"
+services:
+  server:
+    build: server
+    volumes:
+      - ./server:/opt/app
+    ports:
+      - "5000:5000"
+    tty: true
+    command: python server.py
+  front:
+    build: front
+    volumes:
+      # - ./front/package.json:/opt/app/package.json
+      - ./front/src:/opt/app/src
+      - ./front/public:/opt/app/public
+    ports:
+      - "3000:3000"
+    tty: true
+    command: yarn start
