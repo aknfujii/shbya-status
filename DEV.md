@@ -7,9 +7,13 @@
 - (@theme-ui/presets)
 - react-router-dom
 
+## server
+
+- pafy youtube-dl(pafy に必須)
+
 # やること
 
-物体検知して混雑状況を把握してステータスを返す
+-[x] 物体検知して混雑状況を把握してステータスを返す
 
 ```
 {
@@ -17,4 +21,17 @@
     capture: hoge.img,
     updated_at: 2021012910:00 +0900,
 }
+```
+- ロギングにプログレスバー表示
+- NoSQLに変更
+- gifを蓄積する
+- 静的ファイル置き場をつくる
+- shell scriptをどの場所でも実行可能にする
+- footerをつける
+- ページ遷移後、トップに戻ってこれるようにする
+
+# flow
+```bash
+./DL.sh <== 何かトリガーで実行する <== mp4が作られる
+http://localhost:3000
 ```

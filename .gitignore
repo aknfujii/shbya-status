@@ -1,2 +1,10 @@
 .DS_Store
 .eslintcache
+__pycache__
+server/statics/*.png
+server/statics/*.mp4
+server/statics/*.gif
+*.gif
+*.db
+*.pb
+*.pbtxt

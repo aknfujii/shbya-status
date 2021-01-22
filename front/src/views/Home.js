@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Grid,
@@ -30,11 +31,25 @@ const useStyles = makeStyles((theme) => ({
   inneritem: {
     display: "flex",
   },
+  item3:{
+    
+  }
 }));
 
 const Home = (props) => {
   const styles = useStyles();
-  //   console.log(props);
+  const [data, setData] = useState();
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/api/get_status", { mode: "cors" })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.length > 1) {
+          setData([...data].sort((a, b) => a.updated - b.updated));
+        }
+        setData(data.slice(-1)[0]);
+        console.log(data.slice(-1)[0]);
+      });
+  }, []);
   return (
     <Grid container spacing={3} className={styles.root}>
       <Grid item xs={12}>
@@ -53,7 +68,7 @@ const Home = (props) => {
                     <ListItemIcon>
                       <BeachAccessIcon color="primary" fontSize="large" />
                     </ListItemIcon>
-                    天気　　傘は大丈夫そう
+                    天気　　{/*傘は大丈夫そう*/}約{data ? data.umbrella : null}人
                   </h2>
                 </div>
               </div>
@@ -71,10 +86,15 @@ const Home = (props) => {
                     <ListItemIcon>
                       <PeopleAltRoundedIcon color="primary" fontSize="large" />
                     </ListItemIcon>
-                    混雑　　20/100
+                    混雑　　約{data ? data.person : null}人
                   </h2>
                 </div>
               </div>
+            </ListItem>
+            <ListItem>
+            <div className={styles.item}>
+            <div className={styles.item3}>{data? data.updated: null}</div>
+            </div>
             </ListItem>
           </List>
         </Paper>
