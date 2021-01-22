@@ -103,14 +103,14 @@ n = 0
 FILEPATH = "statics/cap.mp4"
 
 
-def detect_video(FILEPATH: str, category: int = 1):
-    if not os.path.exists(FILEPATH):
+def detect_video(filepath: str, category: int = 1):
+    if not os.path.exists(filepath):
         return
     global tensorflowNet
     tensorflowNet = cv2.dnn.readNetFromTensorflow(
         f"{TESTDIR}/{PBFILE}", f"{TESTDIR}/{PBTXTFILE}"
     )
-    cap = cv2.VideoCapture(FILEPATH)
+    cap = cv2.VideoCapture(filepath)
     frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     skip_count = int(frame_count / 10)
     print(f"frame count: {frame_count}")
