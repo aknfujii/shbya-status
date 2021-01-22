@@ -9,6 +9,7 @@ import {
   List,
   ListItemIcon,
 } from "@material-ui/core";
+
 import BeachAccessIcon from "@material-ui/icons/BeachAccess";
 import PeopleAltRoundedIcon from "@material-ui/icons/PeopleAltRounded";
 
@@ -40,7 +41,7 @@ const Home = (props) => {
   const styles = useStyles();
   const [data, setData] = useState();
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/get_status", { mode: "cors" })
+    fetch(process.env.REACT_APP_PUBLIC_URL+"/api/get_status", { mode: "cors" })
       .then((res) => res.json())
       .then((data) => {
         if (data.length > 1) {
