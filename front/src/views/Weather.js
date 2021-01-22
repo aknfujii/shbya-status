@@ -1,6 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper } from "@material-ui/core";
+
 import Weathergif from "../assets/28.gif"
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +31,7 @@ const Weather = () => {
     <Grid container spacing={3} className={styles.root}>
       <Grid item xs={12}>
         <Paper className={styles.paper} elevation={3}>
-        <img loop="infinite" border="0" src={Weathergif} alt="weather detection" />
+        <Link to="/"><img loop="infinite" border="0" src={Weathergif} alt="weather detection" /></Link>
         </Paper>
       </Grid>
     </Grid>

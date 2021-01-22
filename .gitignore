@@ -4,7 +4,7 @@ __pycache__
 server/statics/*.png
 server/statics/*.mp4
 server/statics/*.gif
-*.gif
+# *.gif
 *.db
 *.pb
 *.pbtxt

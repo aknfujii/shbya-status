@@ -29,6 +29,7 @@
 - shell scriptをどの場所でも実行可能にする
 - footerをつける
 - ページ遷移後、トップに戻ってこれるようにする
+- API serverをGCPに建てる
 
 # flow
 ```bash
