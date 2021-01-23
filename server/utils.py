@@ -174,7 +174,7 @@ def create_gif(category: int = 1) -> bool:
     if len(files) < 1:
         raise Exception("there is no png file")
     images = [Image.open(file) for file in files]
-    images[0].save(f"statics/{category}.gif", save_all=True, append_images=images[1:])
+    images[0].save(f"../front/src/assets/{category}.gif", save_all=True, append_images=images[1:])
     return True
 
 
