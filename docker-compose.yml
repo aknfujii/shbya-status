@@ -8,6 +8,7 @@ services:
       - "5000:5000"
     environment:
       - PORT=5000
+      - GOOGLE_APPLICATION_CREDENTIALS=certificate.json
     tty: true
     command: /bin/bash
   front:

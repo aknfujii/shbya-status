@@ -4,7 +4,10 @@ __pycache__
 server/statics/*.png
 server/statics/*.mp4
 server/statics/*.gif
+server/certificate.json
 # *.gif
 *.db
 *.pb
 *.pbtxt
+*.python-version
+*.vscode

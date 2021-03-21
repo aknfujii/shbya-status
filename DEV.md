@@ -24,9 +24,9 @@
 ```
 - ロギングにプログレスバー表示
 - NoSQLに変更
-- gifを蓄積する
-- 静的ファイル置き場をつくる
+    - Firestore
 - shell scriptをどの場所でも実行可能にする
+    - API
 - footerをつける
 - ページ遷移後、トップに戻ってこれるようにする
 - API serverをGCPに建てる

@@ -20,6 +20,7 @@ WORKDIR /opt/app
 RUN pip install -r requirements.txt
 RUN python manage.py init_db
 
+ENV GOOGLE_APPLICATION_CREDENTIALS=certificate.json
 ENV FLASK_APP /opt/app/server.py
 CMD gunicorn server:app -b 0.0.0.0:$PORT --log-file -
 #ENTRYPOINT flask run -h 0.0.0.0 -p $PORT
