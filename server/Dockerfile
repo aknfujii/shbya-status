@@ -17,7 +17,6 @@ RUN python download_models.py
 RUN wget --no-check-certificate https://raw.githubusercontent.com/opencv/opencv_extra/master/testdata/dnn/ssd_mobilenet_v2_coco_2018_03_29.pbtxt
 WORKDIR /opt/app
 
-RUN pip install -r requirements.txt
 RUN python manage.py init_db
 
 ENV GOOGLE_APPLICATION_CREDENTIALS=certificate.json
