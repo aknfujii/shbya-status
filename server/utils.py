@@ -3,6 +3,8 @@ import os
 import cv2
 import numpy
 
+from app import app
+
 classes_90 = [
     "background",
     "person",
@@ -100,27 +102,28 @@ TESTDIR = "testdata"
 PBFILE = "ssd_mobilenet_v2_coco_2018_03_29.pb"
 PBTXTFILE = "ssd_mobilenet_v2_coco_2018_03_29.pbtxt"
 n = 0
-FILEPATH = "statics/cap.mp4"
+DIR = "statics"
+FILEPATH = f"{DIR}/cap.mp4"
 
 
 def detect_video(filepath: str, category: int = 1):
+    app.logger.info(f"{classes_90[category]} detection starting ...")
     if not os.path.exists(filepath):
         return
     global tensorflowNet
-    tensorflowNet = cv2.dnn.readNetFromTensorflow(
-        f"{TESTDIR}/{PBFILE}", f"{TESTDIR}/{PBTXTFILE}"
-    )
+    tensorflowNet = cv2.dnn.readNetFromTensorflow(f"{TESTDIR}/{PBFILE}",
+                                                  f"{TESTDIR}/{PBTXTFILE}")
     cap = cv2.VideoCapture(filepath)
     frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     skip_count = int(frame_count / 10)
-    print(f"frame count: {frame_count}")
+    app.logger.info(f"frame count: {frame_count}")
     count = []
     global n
     n = 0
     for i in range(1, frame_count, skip_count):
         cap.set(cv2.CAP_PROP_POS_FRAMES, i)
         _, frame = cap.read()
-        print(f"frame: {int(cap.get(cv2.CAP_PROP_POS_FRAMES))}")
+        app.logger.info(f"frame: {int(cap.get(cv2.CAP_PROP_POS_FRAMES))}")
         count.append(detect_image(frame, category))
     return count
 
@@ -128,8 +131,7 @@ def detect_video(filepath: str, category: int = 1):
 def detect_image(frame: numpy.ndarray, category: int = 1) -> str:
     rows, cols, channels = frame.shape
     tensorflowNet.setInput(
-        cv2.dnn.blobFromImage(frame, size=(640, 640), swapRB=True, crop=False)
-    )
+        cv2.dnn.blobFromImage(frame, size=(640, 640), swapRB=True, crop=False))
     networkOutput = tensorflowNet.forward()
     count = 0
     write_flag = []
@@ -170,11 +172,15 @@ def create_gif(category: int = 1) -> bool:
     from PIL import Image
     import glob
 
-    files = glob.glob(f"statics/out_{category}_*.png")
+    files = glob.glob(f"{DIR}/out_{category}_*.png")
     if len(files) < 1:
         raise Exception("there is no png file")
     images = [Image.open(file) for file in files]
-    images[0].save(f"../front/src/assets/{category}.gif", save_all=True, append_images=images[1:])
+    images[0].save(f"{DIR}/{category}.gif",
+                   save_all=True,
+                   append_images=images[1:])
+    for glob in glob.glob('{DIR}/*.png'):
+        os.remove(glob)
     return True
 
 

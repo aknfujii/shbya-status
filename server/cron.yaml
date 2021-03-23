@@ -1,0 +1,4 @@
+cron:
+- description: "create status"
+  url: /api/create_status
+  schedule: every 1 hours

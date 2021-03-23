@@ -2,15 +2,15 @@ version: "3"
 services:
   server:
     build: server
-    volumes:
-      - ./server:/opt/app
+    # volumes:
+      # - ./server:/opt/app
     ports:
       - "5000:5000"
     environment:
       - PORT=5000
       - GOOGLE_APPLICATION_CREDENTIALS=certificate.json
     tty: true
-    command: /bin/bash
+    command: flask run --debugger --reload -h 0.0.0.0 -p 5000
   front:
     build: front
     volumes:

@@ -23,16 +23,34 @@
 }
 ```
 - ロギングにプログレスバー表示
-- NoSQLに変更
+- [x]NoSQLに変更
     - Firestore
-- shell scriptをどの場所でも実行可能にする
+- [x]shell scriptをどの場所でも実行可能にする
     - API
 - footerをつける
+    - footerに日時
 - ページ遷移後、トップに戻ってこれるようにする
-- API serverをGCPに建てる
+- [x] API serverをGCPに建てる
+- 画面遷移後、cloudstorageから取ってきたgifを表示 or 過去データのチャート表示
+- create_statusに認証
+- [x]cronを実施
+    - 成功の時は成功で返すようにする
+    - ログが残ってないのでログが残ろうようにする
+    - 実施状況の確認
+- githubactionsにmasterのfrontを変更したらfrontをdeploy,serverを変更したらserverをdeploy(一緒にはしない)
+- typescriptに変更
+- tslint入れる
+- frontの表示を中央寄せにする
+- requiremens.txtの整理 
 
-# flow
+
+# deploy
 ```bash
-./DL.sh <== 何かトリガーで実行する <== mp4が作られる
-http://localhost:3000
+# front
+gcloud builds submit --config front/cloudbuild.yaml front
+# server
+cd server
+gcloud app deploy
+# cron
+gcloud app deploy cron.yaml
 ```

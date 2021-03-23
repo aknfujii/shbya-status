@@ -1,8 +1,7 @@
-runtime: python38
+runtime: custom
 env: flex
 entrypoint: gunicorn -b :$PORT server:app
 
 env_variables:
-  GOOGLE_APPLICATION_CREDENTIALS: certificate.json
   FLASK_APP: $PWD/server.py
 
