@@ -5,7 +5,9 @@ import pafy
 import youtube_dl
 import time
 
-SHIBUYA = "lkIJYc4UH60"
+from config import FILEPATH
+
+SHIBUYA = "HpdO5Kq3o7Y"
 URL = "https://www.youtube.com/watch?v=" + SHIBUYA
 
 p = pafy.new(URL)
@@ -13,9 +15,12 @@ b = p.streams[1]
 url = p.streams[1].url
 
 ydl_opts = {
-    "outtmpl": "statics/cap.mp4",
+    "outtmpl": FILEPATH,
     "nopart": True,
     "quiet": True,
+    'Video':'libx264',
+    'Audio':'wav',
+    'AV':'mkv',
 }
 
 def download(url: str):

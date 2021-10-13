@@ -1,12 +1,12 @@
 from logging.config import dictConfig
 
-from app import app
+from status.app import app
 
 dictConfig({
     'version': 1,
     'formatters': {
         'default': {
-            'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
+            'format': '%(asctime)s[%(levelname)s]%(module)s:%(lineno)s: %(message)s',
         }
     },
     'handlers': {
