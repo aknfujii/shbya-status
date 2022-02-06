@@ -12,30 +12,8 @@ import {
 
 import BeachAccessIcon from "@material-ui/icons/BeachAccess";
 import PeopleAltRoundedIcon from "@material-ui/icons/PeopleAltRounded";
+import {useStyles} from "../components/styles"
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-  item: {
-    margin: "0 auto",
-  },
-  item2: {
-    width: "335px",
-    textAlign: "left",
-  },
-  inneritem: {
-    display: "flex",
-  },
-  item3:{
-    
-  }
-}));
 
 const Home = (props) => {
   const styles = useStyles();
@@ -48,7 +26,6 @@ const Home = (props) => {
           setData([...data].sort((a, b) => a.updated - b.updated));
         }
         setData(data.slice(-1)[0]);
-        console.log(data.slice(-1)[0]);
       });
   }, []);
   return (
@@ -94,7 +71,7 @@ const Home = (props) => {
             </ListItem>
             <ListItem>
             <div className={styles.item}>
-            <div className={styles.item3}>{data? data.updated: null}</div>
+            <div className={styles.item}>{data? data.updated_at: null}</div>
             </div>
             </ListItem>
           </List>

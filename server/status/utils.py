@@ -5,8 +5,8 @@ import numpy
 from PIL import Image
 import glob
 
-from status.app import app
-from status.config import TESTDIR, DIR
+from .app import app
+from .config import TESTDIR, DIR
 
 classes_90 = [
     "background",
@@ -106,8 +106,33 @@ PBFILE = "ssd_mobilenet_v2_coco_2018_03_29.pb"
 PBTXTFILE = "ssd_mobilenet_v2_coco_2018_03_29.pbtxt"
 n = 0
 
+import cv2
+import pafy
+import datetime
 
-def detect_video(filepath: str, category: int = 1):
+URL = "https://www.youtube.com/watch?v=HpdO5Kq3o7Y"
+p = pafy.new(URL)
+best = p.getbest(preftype="mp4")
+
+def detect_video(category: int = 1):
+    global tensorflowNet
+    tensorflowNet = cv2.dnn.readNetFromTensorflow(
+        f"{TESTDIR}/{PBFILE}", f"{TESTDIR}/{PBTXTFILE}"
+    )
+    index=1
+    cap = cv2.VideoCapture(best.url)
+    start=datetime.datetime.now()
+    count=[]
+    while datetime.datetime.now()  < start + datetime.timedelta(seconds=10):
+        ret,frame = cap.read()
+        if index % 10 == 0:
+            app.logger.info(f"frame: {int(cap.get(cv2.CAP_PROP_POS_FRAMES))}")
+            count.append(detect_image(frame, category))
+        index+=1
+    cap.release()
+    return count
+
+def detect_video_old(filepath: str, category: int = 1):
     app.logger.info(f"{classes_90[category]} detection starting ...")
     global tensorflowNet
     tensorflowNet = cv2.dnn.readNetFromTensorflow(
@@ -127,6 +152,7 @@ def detect_video(filepath: str, category: int = 1):
         _, frame = cap.read()
         app.logger.info(f"frame: {int(cap.get(cv2.CAP_PROP_POS_FRAMES))}")
         count.append(detect_image(frame, category))
+    cap.release()
     return count
 
 

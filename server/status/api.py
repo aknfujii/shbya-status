@@ -8,9 +8,9 @@ from flask import jsonify
 import firebase_admin
 from firebase_admin import firestore
 
-from status.app import app
-from status.utils import detect_video, create_gif
-from status.config import FILEPATH, DIR
+from .app import app
+from .utils import detect_video, create_gif
+from .config import FILEPATH, DIR
 
 logger = logging.getLogger(__name__)
 logger.propagate = False
@@ -23,12 +23,6 @@ if not firebase_admin._apps:
 @app.route("/api/create_status", methods=["GET"])
 def create_status():
     # TODO: cronでしか許可しない
-    abspath=os.path.relpath(os.path.dirname(__file__))
-    if not os.path.exists(FILEPATH):
-        os.system(f"./{abspath}/DL.sh")
-    else:
-        os.remove(f"{DIR}/cap.mp4")
-        os.system(f"./{abspath}/DL.sh")
     client = firestore.Client()
     if (
         client.collection("status")
@@ -38,8 +32,8 @@ def create_status():
         response_status = {"status": False}
         app.logger.info(response_status)
         return response_status
-    person_counts = detect_video(FILEPATH, 1)
-    umbrella_counts = detect_video(FILEPATH, 28)
+    person_counts = detect_video(1)
+    umbrella_counts = detect_video(28)
     app.logger.info(f"person_counts: {person_counts}")
     app.logger.info(f"umbrella_counts: {umbrella_counts}")
     person_average = int(numpy.average(person_counts)) if person_counts else 0
@@ -48,7 +42,7 @@ def create_status():
         os.stat(FILEPATH).st_ctime, tz=timezone(timedelta(hours=+9), "JST")
     )
 
-    ref = client.collection("status").document(updated_at)
+    ref = client.collection("status").document(updated_at.isoformat())
     ref.set(
         {
             "person": person_average,
@@ -57,11 +51,6 @@ def create_status():
         },
         merge=False,
     )
-    if not glob.glob("{DIR}/*.png"):
-        create_gif(1)
-        create_gif(28)
-    if os.path.exists(FILEPATH):
-        os.remove(f"{DIR}/cap.mp4")
     response_status = {"status": True}
     app.logger.info(response_status)
     return response_status
