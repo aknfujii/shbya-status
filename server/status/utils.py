@@ -209,5 +209,5 @@ def create_gif(category: int = 1) -> bool:
 
 
 if __name__ == "__main__":
-    detect_video(FILEPATH)
+    detect_video()
     create_gif()
