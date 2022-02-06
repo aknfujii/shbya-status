@@ -43,7 +43,6 @@ numpy==1.22.2
 opencv-contrib-python==4.5.5.62
 opencv-python==4.5.5.62
 packaging==21.3
-pafy @ git+https://github.com/Cupcakus/pafy@45f0deb067bf7c420cdf83a0529fd5274c12de18
 Pillow==9.0.1
 proto-plus==1.19.9
 protobuf==3.19.4

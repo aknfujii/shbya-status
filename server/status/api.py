@@ -30,11 +30,7 @@ def root():
 def create_status():
     # TODO: cronでしか許可しない
     client = firestore.Client()
-    if (
-        client.collection("status")
-        .where("updated_at", "<=", datetime.now(tz=JST) - timedelta(hour=1))
-        .get()
-    ):
+    if client.collection("status").where("updated_at", "<=", datetime.now(tz=JST) - timedelta(hours=1)).get():
         response_status = {"status": False}
         app.logger.info(response_status)
         return response_status
