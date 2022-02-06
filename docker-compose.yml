@@ -2,15 +2,19 @@ version: "3"
 services:
   server:
     build: server
-    # volumes:
-      # - ./server:/opt/app
+    volumes:
+      - ./server/server.py:/opt/app/server.py
+      - ./server/status:/opt/app/status
+      - ./server/statics:/opt/app/statics
     ports:
       - "5000:5000"
     environment:
+      - FLASK_DEBUG
       - PORT=5000
       - GOOGLE_APPLICATION_CREDENTIALS=certificate.json
     tty: true
     command: flask run --debugger --reload -h 0.0.0.0 -p 5000
+    # entrypoint: /bin/bash
   front:
     build: front
     volumes:
@@ -21,3 +25,5 @@ services:
       - "3000:3000"
     tty: true
     command: yarn start
+volumes:
+  hoge:

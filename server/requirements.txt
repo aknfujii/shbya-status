@@ -41,7 +41,6 @@ numpy==1.21.2
 opencv-contrib-python==4.5.3.56
 opencv-python==4.5.3.56
 packaging==21.0
-pafy==0.5.5
 Pillow==8.3.2
 proto-plus==1.19.5
 protobuf==3.18.1
@@ -59,5 +58,5 @@ typing-inspect==0.7.1
 uritemplate==4.1.1
 urllib3==1.26.7
 Werkzeug==2.0.2
-youtube-dl==2021.6.6
+youtube-dl
 zipp==3.6.0

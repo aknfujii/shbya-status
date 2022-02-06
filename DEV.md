@@ -42,15 +42,17 @@
 - tslint入れる
 - frontの表示を中央寄せにする
 - requiremens.txtの整理 
+- mp4ファイル修復
 
 
 # deploy
 ```bash
+gcloud auth login
 # front
 gcloud builds submit --config front/cloudbuild.yaml front
 # server
 cd server
-gcloud app deploy
+gcloud app deploy --version 1
 # cron
 gcloud app deploy cron.yaml
 ```
