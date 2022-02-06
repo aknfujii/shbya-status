@@ -12,20 +12,21 @@ import {
 
 import BeachAccessIcon from "@material-ui/icons/BeachAccess";
 import PeopleAltRoundedIcon from "@material-ui/icons/PeopleAltRounded";
-import {useStyles} from "../components/styles"
-
-
+import { useStyles } from "../components/styles";
+// hoge
 const Home = (props) => {
   const styles = useStyles();
   const [data, setData] = useState();
   useEffect(() => {
-    fetch(process.env.REACT_APP_PUBLIC_URL+"/api/get_status", { mode: "cors" })
+    fetch(process.env.REACT_APP_PUBLIC_URL + "/api/get_status", {
+      mode: "cors",
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.length > 1) {
-          setData([...data].sort((a, b) => a.updated - b.updated));
+          setData([...data].sort((a, b) => a.updated_at - b.updated_at));
         }
-        setData(data.slice(-1)[0]);
+        setData(data[0]);
       });
   }, []);
   return (
@@ -46,7 +47,8 @@ const Home = (props) => {
                     <ListItemIcon>
                       <BeachAccessIcon color="primary" fontSize="large" />
                     </ListItemIcon>
-                    天気　　{/*傘は大丈夫そう*/}約{data ? data.umbrella : null}人
+                    天気　　{/*傘は大丈夫そう*/}約{data ? data.umbrella : null}
+                    人
                   </h2>
                 </div>
               </div>
@@ -70,9 +72,11 @@ const Home = (props) => {
               </div>
             </ListItem>
             <ListItem>
-            <div className={styles.item}>
-            <div className={styles.item}>{data? data.updated_at: null}</div>
-            </div>
+              <div className={styles.item}>
+                <div className={styles.item}>
+                  {data ? data.updated_at : null}
+                </div>
+              </div>
             </ListItem>
           </List>
         </Paper>
